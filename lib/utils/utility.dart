@@ -58,6 +58,7 @@ class StringConst{
   static const name = "Name";
   static const pleaseEnterName= 'Please Enter Name';
 }
+//
 class ImageConst{
   static const String loadingGif = "assets/ios_loadings.gif";
   static const String logo= "assets/logo.jpeg";
