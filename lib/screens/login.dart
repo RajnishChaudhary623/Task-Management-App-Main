@@ -9,6 +9,7 @@ import 'package:notes_app/screens/signup.dart';
 import 'package:notes_app/utils/utility.dart';
 import '../theme/colors.dart';
 import 'forgot_password.dart';
+import 'package:notes_app/theme/colors.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -38,7 +39,7 @@ class _LogInState extends State<LogIn> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                     ImageConst.logo,
+                      ImageConst.logo,
                     ))),
             const SizedBox(
               height: 30.0,
@@ -66,7 +67,7 @@ class _LogInState extends State<LogIn> {
                         controller: mailcontroller,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Email",
+                            hintText: StringConst.email,
                             hintStyle: TextStyle(
                                 color: Color(0xFFb2b7bf), fontSize: 18.0)),
                       ),
@@ -85,13 +86,13 @@ class _LogInState extends State<LogIn> {
                         controller: passwordcontroller,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please Enter Password';
+                            return StringConst.pleaseEnterPassword;
                           }
                           return null;
                         },
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Password",
+                            hintText: StringConst.password,
                             hintStyle: TextStyle(
                                 color: Color(0xFFb2b7bf), fontSize: 18.0)),
                         obscureText: true,
@@ -115,7 +116,7 @@ class _LogInState extends State<LogIn> {
                           // You can add more logic after the login is successful
                         } catch (e) {
                           // Handle login errors if needed
-                         toast(message: 'Login failed: $e');
+                          toast(message: 'Login failed: $e');
                         } finally {
                           setState(() {
                             isLoading = false; // Set loading state to false
@@ -123,29 +124,29 @@ class _LogInState extends State<LogIn> {
                         }
                       },
                       child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 13.0, horizontal: 30.0),
-                          decoration: BoxDecoration(
-                              color: const Color(0xFF273671),
-                              borderRadius: BorderRadius.circular(30)),
-                          child:  Center(
-                            child: isLoading
-                                ? const CircularProgressIndicator(
-                              // Display a CircularProgressIndicator while loading
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.white,
-                              ),
-                            )
-                                : const Text(
-                              "Sign In",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w500,
-                              ),
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 13.0, horizontal: 30.0),
+                        decoration: BoxDecoration(
+                            color: bluecolor,
+                            borderRadius: BorderRadius.circular(30)),
+                        child:  Center(
+                          child: isLoading
+                              ? const CircularProgressIndicator(
+                            // Display a CircularProgressIndicator while loading
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              whiteColor,
+                            ),
+                          )
+                              : const Text(
+                            StringConst.signIn,
+                            style: TextStyle(
+                              color: whiteColor,
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
+                        ),
                       ),
                     ),
                   ],
@@ -162,13 +163,13 @@ class _LogInState extends State<LogIn> {
                     MaterialPageRoute(
                         builder: (context) => const ForgotPassword()));
               },
-              child: const Padding(
-                padding: EdgeInsets.only(right: 20.0),
+              child:  Padding(
+                padding: const EdgeInsets.only(right: 20.0),
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text("Forgot Password?",
+                  child: Text(StringConst.forgotPassword,
                       style: TextStyle(
-                          color: Color(0xFF8c8e98),
+                          color: textGreycolor,
                           fontSize: 18.0,
                           fontWeight: FontWeight.w500)),
                 ),
@@ -177,11 +178,11 @@ class _LogInState extends State<LogIn> {
             const SizedBox(
               height: 40.0,
             ),
-            const Center(
+          Center(
               child: Text(
-                "or LogIn with",
+                StringConst.orLoginWith,
                 style: TextStyle(
-                    color: Color(0xFF273671),
+                    color: bluecolor,
                     fontSize: 22.0,
                     fontWeight: FontWeight.w500),
               ),
@@ -194,11 +195,11 @@ class _LogInState extends State<LogIn> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    toast(message: "Soon This feature available");
-                  //  DatabaseHandler().signInWithGoogle(context);
+                    toast(message: StringConst.soonThisIsAvailable);
+                    //  DatabaseHandler().signInWithGoogle(context);
                   },
                   child: Image.asset(
-                    "assets/google.png",
+                    ImageConst.google,
                     height: 45,
                     width: 45,
                     fit: BoxFit.cover,
@@ -209,11 +210,11 @@ class _LogInState extends State<LogIn> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    toast(message: "Soon This feature available");
+                    toast(message: StringConst.soonThisIsAvailable);
                     //DatabaseHandler().signInWithApple();
                   },
                   child: Image.asset(
-                    "assets/apple.png",
+                    ImageConst.apple,
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -227,9 +228,9 @@ class _LogInState extends State<LogIn> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an account?",
+                Text(StringConst.dontHaveAccount,
                     style: TextStyle(
-                        color: Color(0xFF8c8e98),
+                        color: textGreycolor,
                         fontSize: 18.0,
                         fontWeight: FontWeight.w500)),
                 const SizedBox(
@@ -242,10 +243,10 @@ class _LogInState extends State<LogIn> {
                         MaterialPageRoute(
                             builder: (context) => const SignUp()));
                   },
-                  child: const Text(
-                    "SignUp",
+                  child:  Text(
+                    StringConst.signUp,
                     style: TextStyle(
-                        color: Color(0xFF273671),
+                        color: bluecolor,
                         fontSize: 20.0,
                         fontWeight: FontWeight.w500),
                   ),

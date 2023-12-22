@@ -19,47 +19,10 @@ class _SignUpState extends State<SignUp> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
-
   final _formkey = GlobalKey<FormState>();
-  registration() async {
-    if (password != null &&
-        namecontroller.text != "" &&
-        mailcontroller.text != "") {
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-          "Registered Successfully",
-          style: TextStyle(fontSize: 20.0),
-        )));
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                "Password Provided is too Weak",
-                style: TextStyle(fontSize: 18.0),
-              )));
-        } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                "Account Already exists",
-                style: TextStyle(fontSize: 18.0),
-              )));
-        }
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: darkBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 50.0),
@@ -71,7 +34,7 @@ class _SignUpState extends State<SignUp> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      "assets/logo.jpeg",
+                      ImageConst.logo,
                     ))),
             const SizedBox(
               height: 30.0,
@@ -89,17 +52,17 @@ class _SignUpState extends State<SignUp> {
                           color: const Color(0xFFedf0f8),
                           borderRadius: BorderRadius.circular(30)),
                       child: TextFormField(
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please Enter Name';
+                            return StringConst.pleaseEnterName;
                           }
                           return null;
                         },
                         controller: namecontroller,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Name",
+                            hintText: StringConst.name,
                             hintStyle: TextStyle(
                                 color: Color(0xFFb2b7bf), fontSize: 18.0)),
                       ),
@@ -114,17 +77,17 @@ class _SignUpState extends State<SignUp> {
                           color: const Color(0xFFedf0f8),
                           borderRadius: BorderRadius.circular(30)),
                       child: TextFormField(
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please Enter Email';
+                            return StringConst.pleaseEnterEmail;
                           }
                           return null;
                         },
                         controller: mailcontroller,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Email",
+                            hintText: StringConst.email,
                             hintStyle: TextStyle(
                                 color: Color(0xFFb2b7bf), fontSize: 18.0)),
                       ),
@@ -139,17 +102,17 @@ class _SignUpState extends State<SignUp> {
                           color: const Color(0xFFedf0f8),
                           borderRadius: BorderRadius.circular(30)),
                       child: TextFormField(
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please Enter Password';
+                            return StringConst.pleaseEnterPassword;
                           }
                           return null;
                         },
                         controller: passwordcontroller,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Password",
+                            hintText: StringConst.password,
                             hintStyle: TextStyle(
                                 color: Color(0xFFb2b7bf), fontSize: 18.0)),
                         obscureText: true,
@@ -178,12 +141,12 @@ class _SignUpState extends State<SignUp> {
                               borderRadius: BorderRadius.circular(30)),
                           child: const Center(
                               child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w500),
-                          ))),
+                                StringConst.signIn,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.w500),
+                              ))),
                     ),
                   ],
                 ),
@@ -194,7 +157,7 @@ class _SignUpState extends State<SignUp> {
             ),
             const Center(
               child: Text(
-                "or LogIn with",
+                StringConst.orLoginWith,
                 style: TextStyle(
                     color: Color(0xFF273671),
                     fontSize: 22.0,
@@ -209,10 +172,10 @@ class _SignUpState extends State<SignUp> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    toast(message: "Soon This feature available");
+                    toast(message: StringConst.soonThisIsAvailable);
                   },
                   child: Image.asset(
-                    "assets/google.png",
+                    ImageConst.google,
                     height: 45,
                     width: 45,
                     fit: BoxFit.cover,
@@ -223,10 +186,10 @@ class _SignUpState extends State<SignUp> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    toast(message: "Soon This feature available");
+                    toast(message: StringConst.soonThisIsAvailable);
                   },
                   child: Image.asset(
-                    "assets/apple.png",
+                    ImageConst.apple,
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -240,7 +203,7 @@ class _SignUpState extends State<SignUp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Already have an account?",
+                const Text(StringConst.alreadyAccount ,
                     style: TextStyle(
                         color: Color(0xFF8c8e98),
                         fontSize: 18.0,
@@ -254,7 +217,7 @@ class _SignUpState extends State<SignUp> {
                         MaterialPageRoute(builder: (context) => const LogIn()));
                   },
                   child: const Text(
-                    "LogIn",
+                    StringConst.login,
                     style: TextStyle(
                         color: Color(0xFF273671),
                         fontSize: 20.0,
@@ -267,5 +230,39 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+  registration() async {
+    if (password != null &&
+        namecontroller.text != "" &&
+        mailcontroller.text != "") {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+              StringConst.registerSuccessuly,
+              style: TextStyle(fontSize: 20.0),
+            )));
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == StringConst.weakPassword) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text(
+                StringConst.passwordProvidedIsTooWeak,
+                style: TextStyle(fontSize: 18.0),
+              )));
+        } else if (e.code == StringConst.emailInUse) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text(
+                StringConst.accountExists,
+                style: TextStyle(fontSize: 18.0),
+              )));
+        }
+      }
+    }
   }
 }
