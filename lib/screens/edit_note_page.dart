@@ -49,7 +49,7 @@ class _EditNotePageState extends State<EditNotePage> {
           children: [
             _isNoteEditing == true
                 ? Image.asset(
-                    "assets/ios_loadings.gif",
+                    ImageConst.loadingGif,
                     width: 50,
                     height: 50,
                   )
@@ -81,8 +81,8 @@ class _EditNotePageState extends State<EditNotePage> {
                           }),
                     ],
                   ),
-                  SizedBox(height: 30),
-                  Container(
+                  const SizedBox(height: 30),
+                  SizedBox(
                     height: 80,
                     child: ListView.builder(
                       itemCount: predefinedColors.length,
@@ -112,7 +112,7 @@ class _EditNotePageState extends State<EditNotePage> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   FormWidget(
@@ -120,7 +120,7 @@ class _EditNotePageState extends State<EditNotePage> {
                     controller: _titleController!,
                     hintText: StringConst.title,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   FormWidget(
                     maxLines: 15,
                     fontSize: 20,

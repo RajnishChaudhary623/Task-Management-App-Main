@@ -1,14 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notes_app/database/database_handler.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/screens/create_note_page.dart';
 import 'package:notes_app/screens/edit_note_page.dart';
 import 'package:notes_app/theme/colors.dart';
 import 'package:notes_app/utils/utility.dart';
-import 'package:notes_app/widgets/button_widget.dart';
 import 'package:notes_app/widgets/dialog_box_widget.dart';
 import 'package:notes_app/widgets/single_note_widget.dart';
 
@@ -39,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     ConnectivityResult result = await Connectivity().checkConnectivity();
     setState(() {
       _connectivityResult = result;
-      // Note: Avoid calling _showNoInternetSnackBar() here to prevent duplicates
     });
   }
 
@@ -85,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(width: 6,),
               Text(
-                "Add Notes",
+                StringConst.addNotes,
                 style: TextStyle(fontSize: 20),
               ),
             ],
