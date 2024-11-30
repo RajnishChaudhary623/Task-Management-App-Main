@@ -232,37 +232,98 @@ class _SignUpState extends State<SignUp> {
     );
   }
   registration() async {
-    if (password != null &&
-        namecontroller.text != "" &&
-        mailcontroller.text != "") {
+    if (passwordcontroller.text.isNotEmpty &&
+        namecontroller.text.isNotEmpty &&
+        mailcontroller.text.isNotEmpty) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        // Check connectivity before proceeding
+        var connectivityResult = await Connectivity().checkConnectivity();
+        if (connectivityResult == ConnectivityResult.none) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.redAccent,
             content: Text(
-              StringConst.registerSuccessuly,
-              style: TextStyle(fontSize: 20.0),
-            )));
-        // ignore: use_build_context_synchronously
-        Navigator.push(
+              "No internet connection. Please try again later.",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ));
+          return;
+        }
+
+        // Try to create the user
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+            email: email.trim(), password: password.trim());
+
+        // Save user details in Firebase Authentication
+        userCredential.user?.updateDisplayName(name.trim());
+
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Registered successfully! Redirecting to home...",
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ));
+
+        // Navigate to the Home Page
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const HomePage()));
       } on FirebaseAuthException catch (e) {
-        if (e.code == StringConst.weakPassword) {
+        if (e.code == 'email-already-in-use') {
+          // Email already exists; redirect to login
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                StringConst.passwordProvidedIsTooWeak,
-                style: TextStyle(fontSize: 18.0),
-              )));
-        } else if (e.code == StringConst.emailInUse) {
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "This email is already registered. Redirecting to login...",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const LogIn()));
+        } else if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                StringConst.accountExists,
-                style: TextStyle(fontSize: 18.0),
-              )));
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "The password provided is too weak.",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ));
+        } else if (e.code == 'invalid-email') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              "The email address is not valid.",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ));
+        } else {
+          // Generic error
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              "An error occurred: ${e.message}",
+              style: const TextStyle(fontSize: 18.0),
+            ),
+          ));
         }
+      } catch (e) {
+        // Handle any other errors
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(
+            "An unexpected error occurred: $e",
+            style: const TextStyle(fontSize: 18.0),
+          ),
+        ));
       }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.redAccent,
+        content: Text(
+          "Please fill in all fields.",
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ));
     }
   }
+
 }

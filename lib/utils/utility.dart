@@ -39,7 +39,7 @@ class StringConst{
   static const areYouSureDelete = "Are you sure you want\nto delete this note ?";
   static const noConnection = 'No Internet Connection';
   static const createColourNotes=  "Create Colorful Notes";
-  static const notes = 'Notes';
+  static const taskManagement = 'Task Management';
   static const registerSuccessuly ="Registered Successfully";
   static const signIn =  "Sign In";
   static const soonThisIsAvailable = "Soon This feature available";
@@ -48,7 +48,7 @@ class StringConst{
   static const forgotPassword = "Forgot Password?";
   static const pleaseEnterPassword ='Please Enter Password';
   static const password = "Password";
-  static const addNotes = "Add Notes";
+  static const addTask = "Add Task";
   static const accountExists = "Account Already exists";
   static const emailInUse = "email-already-in-use";
   static const passwordProvidedIsTooWeak =  "Password Provided is too Weak";
