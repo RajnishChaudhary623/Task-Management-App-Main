@@ -141,6 +141,8 @@ class DatabaseHandler {
         title: note.title,
         body: note.body,
         color: note.color,
+        startDate: note.startDate,
+        endDate: note.endDate,
       ).toDocument();
 
       try {
@@ -173,7 +175,9 @@ class DatabaseHandler {
         id: note.id,
         title: note.title,
         body: note.body,
-        color: note.color
+        color: note.color,
+        startDate: note.startDate,
+        endDate: note.endDate,
     ).toDocument();
 
     try {

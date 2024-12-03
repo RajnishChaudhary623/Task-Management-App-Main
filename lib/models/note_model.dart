@@ -5,9 +5,11 @@ class NoteModel {
   final String? id;
   final String? title;
   final String? body;
+  final String? startDate;
+  final String? endDate;
   final int? color;
 
-  NoteModel({this.id, this.title, this.body, this.color});
+  NoteModel({this.id, this.title, this.body, this.color,this.startDate, this.endDate,});
 
   factory NoteModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     return NoteModel(
@@ -15,6 +17,8 @@ class NoteModel {
       body: snapshot['body'],
       color: snapshot['color'],
       id: snapshot['id'],
+      endDate: snapshot['startDate'],
+      startDate: snapshot['endDate'],
     );
   }
 
@@ -23,5 +27,7 @@ class NoteModel {
     "id": id,
     "body": body,
     "color": color,
+    "startDate":startDate,
+    "endDate":endDate,
   };
 }

@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: darkBackgroundColor,
         centerTitle: true,
         title: const Text(
-         StringConst.notes,
-          style: TextStyle(fontSize: 40),
+         StringConst.taskManagement,
+          style: TextStyle(fontSize: 30),
         ),
         actions: [
           IconButton(onPressed: () =>   DatabaseHandler().signOut(), icon: const Icon(Icons.logout))
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(width: 6,),
               Text(
-                StringConst.addNotes,
+                StringConst.addTask,
                 style: TextStyle(fontSize: 20),
               ),
             ],
@@ -119,6 +119,8 @@ class _HomePageState extends State<HomePage> {
                 title: notes[index].title,
                 body: notes[index].body,
                 color: notes[index].color,
+                startDate: notes[index].startDate,
+                endDate: notes[index].endDate,
                 onTap: () {
                   Navigator.push(
                     context,
